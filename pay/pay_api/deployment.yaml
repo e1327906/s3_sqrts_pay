@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pay-api-deployment
+  labels:
+    app: pay-api-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pay-api-app
+  template:
+    metadata:
+      labels:
+        app: pay-api-app
+    spec:
+      containers:
+        - name: pay-api-container
+          image: e1327906/pay_api:latest
+          ports:
+            - containerPort: 8080
+          #env:
+            #- name: SPRING_PROFILES_ACTIVE
+              #value: "default" # Optional: set Spring profile
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pay-api-service
+spec:
+  selector:
+    app: pay-api-app
+  ports:
+    - protocol: TCP
+      port: 8072        # Port on which the service will be exposed
+      targetPort: 8072  # Port on which the container is listening
+      nodePort: 30200   # The port on the Node (host) that will be exposed
+  type: NodePort        # Service type to expose the application on a specific Node port

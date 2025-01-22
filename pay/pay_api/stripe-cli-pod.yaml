@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stripe-cli
+spec:
+  containers:
+    - name: stripe-cli
+      image: stripe/stripe-cli:latest
+      stdin: true # Enable stdin for interactive input
+      tty: true   # Enable tty to simulate `-it` flag
+      command: ["/bin/sh"] # Optional, to run a shell inside the container
+  restartPolicy: Never # Equivalent to `--rm` in Docker
