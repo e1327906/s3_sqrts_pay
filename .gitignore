@@ -5,5 +5,4 @@
 target
 .camel
 processed
-*.properties
 .DS_Store

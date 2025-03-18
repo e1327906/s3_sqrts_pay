@@ -13,25 +13,3 @@ spec:
       targetPort: 8080
 
   type: LoadBalancer
----
-apiVersion: autoscaling.k8s.io/v1
-kind: VerticalPodAutoscaler
-metadata:
-  name: pay-api-app-vpa
-spec:
-  targetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: pay-api-deployment
-  updatePolicy:
-    updateMode: Auto
-  resourcePolicy:
-    containerPolicies:
-      - containerName: '*'
-        minAllowed:
-          cpu: 100m
-          memory: 200Mi
-        maxAllowed:
-          cpu: 400m  # Adjust maxAllowed as necessary
-          memory: 500Mi  # Adjust maxAllowed as necessary
-        controlledResources: ["cpu", "memory"]
